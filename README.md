@@ -1,8 +1,6 @@
 # 💕 Seni Çok Seviyorum! 💕
 
-## 🌹 Özel Özür Dileme Websitesi 🌹
 
-Bu website, kız arkadaşıma olan sevgimi ve özrümü göstermek için özel olarak tasarlandı.
 
 ### ✨ Özellikler:
 
@@ -21,12 +19,7 @@ Bu website, kız arkadaşıma olan sevgimi ve özrümü göstermek için özel o
 3. "Seni Affediyorum" butonuna tıklayın
 4. Özel efektleri görün!
 
-### 💝 Mesaj:
 
-Sevgilim, seni incittiğim için gerçekten çok üzgünüm. Sen benim en değerlim, en güzelim, en özelimsin. Seni tekrar mutlu etmek için her şeyi yaparım. Lütfen beni affet ve bana bir şans daha ver.
 
-**Seni çok seviyorum! ❤️**
 
----
 
-*Bu website sadece senin için yapıldı, sevgilim! 💕*
