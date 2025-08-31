@@ -74,14 +74,14 @@ function moveButton() {
     
     // Buton metnini değiştir
     const messages = [
-        'Gerçekten mi?',
+        'Ağlarım Bak?',
         'Emin misin?',
         'Son kez düşün!',
         'Lütfen!',
         'Seni çok seviyorum!',
-        'Bir şans daha ver!',
+        'Abart Biraz Daha Abart!',
         'Özür dilerim!',
-        'Affet beni!'
+        'Küserim Barış Hadi!'
     ];
     
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -269,3 +269,4 @@ mouseStyle.textContent = `
     }
 `;
 document.head.appendChild(mouseStyle);
+
