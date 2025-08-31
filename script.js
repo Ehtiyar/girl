@@ -189,11 +189,11 @@ function moveButton() {
         'Gerçekten mi?',
         'Emin misin?',
         'Son kez düşün!',
-        'Lütfen!',
+        'Abart Biraz Daha Abart!',
         'Seni çok seviyorum!',
-        'Bir şans daha ver!',
+        'Aksam Agla Gozüm Dinleriz!',
         'Özür dilerim!',
-        'Affet beni!'
+        'Affet beni derbeder oldum!'
     ];
     
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -399,3 +399,4 @@ window.addEventListener('beforeunload', function() {
         audioPlayer.currentTime = 0;
     }
 });
+
