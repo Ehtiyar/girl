@@ -8,6 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Müzik Kontrol Paneli -->
+    <div class="music-controls">
+        <div class="music-info">
+            <span class="song-title">🎵 Cevher Özelim</span>
+            <div class="music-buttons">
+                <button class="music-btn" onclick="toggleMusic()" id="musicToggle">
+                    <span id="musicIcon">▶️</span>
+                </button>
+                <button class="music-btn" onclick="toggleMute()" id="muteBtn">
+                    🔊
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="heart-container">
             <div class="heart"></div>
@@ -19,19 +34,19 @@
             
             <div class="message-container">
                 <div class="message-card">
-                    <h2>Sevgili Betüşüm,</h2>
+                    <h2>Sevgilim,</h2>
                     <p>Seni incittiğim için gerçekten çok üzgünüm. Senin kadar değerli birini kaybetek istemiyorum. Her gün seni düşünüyorum ve ne kadar yanlış yaptığımı anlıyorum.</p>
                     <p>Sen benim en değerlim, en güzelim, en özelimsin. Seni tekrar mutlu etmek için her şeyi yaparım.</p>
-                    <p>Güzelim Benim Tatlılığın Gözümün Önüne Geliyor Barışak Mı?</p>
-                    <p>Enes Çok Üzgün Enes Ağlıyor Enes Derbeder Oldu.</p>
+                    <p>Lütfen beni affet ve bana bir şans daha ver.</p>
                     <p class="signature">Seni çok seven...</p>
                 </div>
             </div>
             
-            <div class="buttons">
-                <button class="btn yes-btn" onclick="showLove()">Seni Affediyorum ❤️</button>
-                <button class="btn no-btn" onclick="moveButton()">Hayır</button>
-            </div>
+                         <div class="buttons">
+                 <button class="btn yes-btn" onclick="showLove()">Seni Affediyorum ❤️</button>
+                 <button class="btn no-btn" onclick="moveButton()">Hayır</button>
+                 <button class="btn test-btn" onclick="testMusic()" style="background: linear-gradient(45deg, #28a745, #20c997);">🎵 Müzik Test</button>
+             </div>
             
             <div class="love-message" id="loveMessage" style="display: none;">
                 <h2>Teşekkürler! ❤️</h2>
@@ -48,9 +63,13 @@
             <div class="floating-heart">💗</div>
         </div>
     </div>
+
+    <!-- MP3 Müzik Dosyası -->
+    <audio id="audioPlayer" preload="auto">
+        <source src="test.mp3" type="audio/mpeg">
+        Tarayıcınız audio elementini desteklemiyor.
+    </audio>
     
     <script src="script.js"></script>
 </body>
 </html>
-
-

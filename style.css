@@ -12,6 +12,70 @@ body {
     position: relative;
 }
 
+/* Müzik Kontrol Paneli */
+.music-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border: 2px solid rgba(255, 107, 107, 0.3);
+    animation: slideInRight 1s ease-out;
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.song-title {
+    font-size: 0.9rem;
+    color: #ff6b6b;
+    font-weight: 600;
+    text-align: center;
+}
+
+.music-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.music-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+.music-btn:active {
+    transform: scale(0.95);
+}
+
+/* MP3 Audio Player Gizli */
+#audioPlayer {
+    display: none;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -300,6 +364,17 @@ body {
     }
 }
 
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -329,6 +404,22 @@ body {
 
 /* Responsive Tasarım */
 @media (max-width: 768px) {
+    .music-controls {
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+    }
+    
+    .song-title {
+        font-size: 0.8rem;
+    }
+    
+    .music-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
     .title {
         font-size: 2.5rem;
     }

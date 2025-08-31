@@ -1,5 +1,13 @@
+// MP3 Audio Player
+let audioPlayer;
+let isMusicPlaying = false;
+let isMuted = false;
+
 // Sayfa yüklendiğinde çalışacak fonksiyonlar
 document.addEventListener('DOMContentLoaded', function() {
+    // Audio player'ı başlat
+    initAudioPlayer();
+    
     // Sayfa yüklendiğinde güzel bir giriş animasyonu
     setTimeout(() => {
         document.body.style.opacity = '1';
@@ -8,6 +16,108 @@ document.addEventListener('DOMContentLoaded', function() {
     // Yüzen kalpler için rastgele pozisyonlar
     createFloatingHearts();
 });
+
+// Audio player'ı başlat
+function initAudioPlayer() {
+    audioPlayer = document.getElementById('audioPlayer');
+    
+    // Audio event listener'ları ekle
+    audioPlayer.addEventListener('loadeddata', function() {
+        console.log('MP3 dosyası yüklendi!');
+        // Başlangıçta sessiz
+        audioPlayer.muted = true;
+        isMuted = true;
+        updateMuteButton();
+    });
+    
+    audioPlayer.addEventListener('play', function() {
+        isMusicPlaying = true;
+        updatePlayButton();
+        console.log('Müzik çalıyor');
+    });
+    
+    audioPlayer.addEventListener('pause', function() {
+        isMusicPlaying = false;
+        updatePlayButton();
+        console.log('Müzik durdu');
+    });
+    
+    audioPlayer.addEventListener('ended', function() {
+        // Şarkı bitince tekrar başlat
+        audioPlayer.currentTime = 0;
+        audioPlayer.play();
+        console.log('Müzik tekrar başlatıldı');
+    });
+    
+    // Hata durumunda
+    audioPlayer.addEventListener('error', function(e) {
+        console.log('Müzik yükleme hatası:', e);
+        alert('Müzik dosyası yüklenemedi! Lütfen test.mp3 dosyasının klasörde olduğundan emin olun.');
+    });
+}
+
+// Müzik çal/durdur
+function toggleMusic() {
+    if (!audioPlayer) {
+        console.log('Audio player henüz hazır değil');
+        return;
+    }
+    
+    try {
+        if (isMusicPlaying) {
+            audioPlayer.pause();
+            console.log('Müzik durduruldu');
+        } else {
+            audioPlayer.play();
+            console.log('Müzik çalınıyor');
+        }
+    } catch (error) {
+        console.log('Müzik çalma hatası:', error);
+    }
+}
+
+// Sessiz/açık
+function toggleMute() {
+    if (!audioPlayer) {
+        console.log('Audio player henüz hazır değil');
+        return;
+    }
+    
+    try {
+        if (isMuted) {
+            audioPlayer.muted = false;
+            isMuted = false;
+            console.log('Ses açıldı');
+        } else {
+            audioPlayer.muted = true;
+            isMuted = true;
+            console.log('Ses kapatıldı');
+        }
+        updateMuteButton();
+    } catch (error) {
+        console.log('Ses kontrolü hatası:', error);
+    }
+}
+
+// Play buton güncelle
+function updatePlayButton() {
+    const musicIcon = document.getElementById('musicIcon');
+    if (isMusicPlaying) {
+        musicIcon.textContent = '⏸️';
+    } else {
+        musicIcon.textContent = '▶️';
+    }
+}
+
+// Mute buton güncelle
+function updateMuteButton() {
+    const muteBtn = document.getElementById('muteBtn');
+    if (isMuted) {
+        muteBtn.textContent = '🔇';
+    } else {
+        muteBtn.textContent = '🔊';
+    }
+}
 
 // Yüzen kalpler oluştur
 function createFloatingHearts() {
@@ -46,8 +156,10 @@ function showLove() {
     // Kalp yağmuru efekti
     createHeartRain();
     
-    // Müzik çal (eğer tarayıcı destekliyorsa)
-    playLoveMusic();
+    // Müziği otomatik çal
+    if (audioPlayer && !isMusicPlaying) {
+        audioPlayer.play();
+    }
     
     // Sayfa başlığını değiştir
     document.title = 'Seni Seviyorum! ❤️';
@@ -74,14 +186,14 @@ function moveButton() {
     
     // Buton metnini değiştir
     const messages = [
-        'Ağlarım Bak?',
+        'Gerçekten mi?',
         'Emin misin?',
         'Son kez düşün!',
         'Lütfen!',
         'Seni çok seviyorum!',
-        'Abart Biraz Daha Abart!',
+        'Bir şans daha ver!',
         'Özür dilerim!',
-        'Küserim Barış Hadi!'
+        'Affet beni!'
     ];
     
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -150,31 +262,6 @@ function createHeartRain() {
                 heart.remove();
             }, 3000);
         }, i * 200);
-    }
-}
-
-// Müzik çal
-function playLoveMusic() {
-    // Basit bir beep sesi (tarayıcı uyumluluğu için)
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C note
-        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.5); // E note
-        oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 1); // G note
-        
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 2);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 2);
-    } catch (e) {
-        console.log('Müzik çalınamadı:', e);
     }
 }
 
@@ -270,3 +357,45 @@ mouseStyle.textContent = `
 `;
 document.head.appendChild(mouseStyle);
 
+// Test müzik fonksiyonu
+function testMusic() {
+    console.log('Müzik test başlatılıyor...');
+    console.log('Audio player durumu:', audioPlayer);
+    console.log('Audio player hazır mı:', audioPlayer && audioPlayer.readyState);
+    
+    if (audioPlayer) {
+        try {
+            console.log('Audio ready state:', audioPlayer.readyState);
+            console.log('Audio current time:', audioPlayer.currentTime);
+            console.log('Audio duration:', audioPlayer.duration);
+            console.log('Audio paused:', audioPlayer.paused);
+            console.log('Audio muted:', audioPlayer.muted);
+            console.log('Audio volume:', audioPlayer.volume);
+            
+            if (audioPlayer.readyState >= 2) {
+                console.log('MP3 dosyası hazır!');
+                if (audioPlayer.paused) {
+                    console.log('Müzik çalınıyor...');
+                    audioPlayer.play();
+                } else {
+                    console.log('Müzik durduruluyor...');
+                    audioPlayer.pause();
+                }
+            } else {
+                console.log('MP3 dosyası henüz yüklenmedi...');
+            }
+        } catch (error) {
+            console.log('Test hatası:', error);
+        }
+    } else {
+        console.log('Audio player henüz hazır değil!');
+    }
+}
+
+// Sayfa kapatılırken müziği durdur
+window.addEventListener('beforeunload', function() {
+    if (audioPlayer) {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+    }
+});
